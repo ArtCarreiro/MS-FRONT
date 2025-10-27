@@ -2,8 +2,15 @@
 *.jsx linguist-language=JavaScript
 *.ts  linguist-language=TypeScript
 *.tsx linguist-language=TypeScript
+*.jsx  linguist-detectable=true
+*.tsx  linguist-detectable=true
 
-# Ignora arquivos compilados e dependências
 build/** linguist-vendored
 dist/** linguist-vendored
 node_modules/** linguist-vendored
+coverage/** linguist-vendored
+
+*.lock linguist-vendored
+*.json linguist-vendored
+*.config.js linguist-vendored
+*.config.ts linguist-vendored
