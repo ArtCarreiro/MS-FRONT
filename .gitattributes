@@ -1,0 +1,9 @@
+*.js  linguist-language=JavaScript
+*.jsx linguist-language=JavaScript
+*.ts  linguist-language=TypeScript
+*.tsx linguist-language=TypeScript
+
+# Ignora arquivos compilados e dependências
+build/** linguist-vendored
+dist/** linguist-vendored
+node_modules/** linguist-vendored
