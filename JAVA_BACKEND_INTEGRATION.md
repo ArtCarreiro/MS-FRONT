@@ -9,7 +9,7 @@ Este frontend React/Next.js está configurado para consumir APIs REST de um back
 Crie um arquivo `.env.local` na raiz do projeto:
 
 \`\`\`env
-NEXT_PUBLIC_API_URL=http://localhost:8080/api
+NEXT_PUBLIC_API_URL=http://localhost:8080
 \`\`\`
 
 ### 2. Endpoints Esperados do Backend Java
@@ -17,36 +17,36 @@ NEXT_PUBLIC_API_URL=http://localhost:8080/api
 O frontend espera os seguintes endpoints REST:
 
 #### Autenticação
-- `POST /api/auth/login` - Login do usuário
+- `POST /auth/login` - Login do usuário
   - Body: `{ email: string, password: string }`
   - Response: `{ token: string, user: { id, email, name, createdAt } }`
 
-- `POST /api/auth/register` - Registro de novo usuário
+- `POST /auth/register` - Registro de novo usuário
   - Body: `{ email: string, password: string, name?: string }`
   - Response: `{ token: string, user: { id, email, name, createdAt } }`
 
 #### Produtos
-- `GET /api/products` - Listar todos os produtos
-- `GET /api/products/featured` - Listar produtos em destaque
-- `GET /api/products/{slug}` - Buscar produto por slug
-- `GET /api/products/category/{categorySlug}` - Produtos por categoria
+- `GET /products` - Listar todos os produtos
+- `GET /products/featured` - Listar produtos em destaque
+- `GET /products/{slug}` - Buscar produto por slug
+- `GET /products/category/{categorySlug}` - Produtos por categoria
 
 #### Categorias
-- `GET /api/categories` - Listar todas as categorias
+- `GET /categories` - Listar todas as categorias
 
 #### Carrinho (requer autenticação)
-- `GET /api/cart` - Obter carrinho do usuário
-- `POST /api/cart/items` - Adicionar item ao carrinho
+- `GET /cart` - Obter carrinho do usuário
+- `POST /cart/items` - Adicionar item ao carrinho
   - Body: `{ productId: string, quantity: number }`
-- `PUT /api/cart/items/{productId}` - Atualizar quantidade
+- `PUT /cart/items/{productId}` - Atualizar quantidade
   - Body: `{ quantity: number }`
-- `DELETE /api/cart/items/{productId}` - Remover item
-- `DELETE /api/cart` - Limpar carrinho
+- `DELETE /cart/items/{productId}` - Remover item
+- `DELETE /cart` - Limpar carrinho
 
 #### Pedidos (requer autenticação)
-- `GET /api/orders` - Listar pedidos do usuário
-- `GET /api/orders/{orderId}` - Buscar pedido específico
-- `POST /api/orders` - Criar novo pedido
+- `GET /orders` - Listar pedidos do usuário
+- `GET /orders/{orderId}` - Buscar pedido específico
+- `POST /orders` - Criar novo pedido
   - Body: `{ shippingName, shippingAddress, shippingCity, shippingState, shippingZip }`
 
 ### 3. Autenticação JWT
@@ -107,7 +107,7 @@ public class CorsConfig {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/api/**")
+                registry.addMapping("/**")
                     .allowedOrigins("http://localhost:3000")
                     .allowedMethods("GET", "POST", "PUT", "DELETE")
                     .allowedHeaders("*")
@@ -122,7 +122,7 @@ public class CorsConfig {
 
 \`\`\`java
 @RestController
-@RequestMapping("/api/products")
+@RequestMapping("/products")
 public class ProductController {
     
     @GetMapping
@@ -144,11 +144,11 @@ public class ProductController {
 
 ## Arquivos Principais
 
-- `lib/api/client.ts` - Cliente HTTP base com interceptors
-- `lib/api/auth.ts` - Serviço de autenticação
-- `lib/api/products.ts` - Serviço de produtos
-- `lib/api/cart.ts` - Serviço de carrinho
-- `lib/api/orders.ts` - Serviço de pedidos
+- `lib/client.ts` - Cliente HTTP base com interceptors
+- `lib/auth.ts` - Serviço de autenticação
+- `lib/products.ts` - Serviço de produtos
+- `lib/cart.ts` - Serviço de carrinho
+- `lib/orders.ts` - Serviço de pedidos
 - `hooks/use-auth.tsx` - Hook de autenticação
 - `hooks/use-cart.tsx` - Hook de carrinho (com sincronização)
 
