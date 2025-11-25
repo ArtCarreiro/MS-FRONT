@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: "ShopBR - Sua Loja Online de Confiança",
+  title: "Miranda Store - Sua Loja Online de Confiança",
   description: "Encontre os melhores produtos com os melhores preços. Entrega rápida e segura.",
     generator: 'v0.app'
 }

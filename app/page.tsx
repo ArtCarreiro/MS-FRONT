@@ -129,7 +129,7 @@ export default function HomePage() {
             <div>
               <div className="flex items-center space-x-2 mb-4">
                 <div className="h-8 w-8 rounded-lg bg-primary" />
-                <span className="text-xl font-bold">ShopBR</span>
+                <span className="text-xl font-bold">Miranda Store</span>
               </div>
               <p className="text-sm text-muted-foreground">
                 Sua loja online de confiança com os melhores produtos e preços.
@@ -197,7 +197,7 @@ export default function HomePage() {
             </div>
           </div>
           <div className="mt-12 pt-8 border-t text-center text-sm text-muted-foreground">
-            <p>&copy; 2025 ShopBR. Todos os direitos reservados.</p>
+            <p>&copy; 2025 Miranda Store. Todos os direitos reservados.</p>
           </div>
         </div>
       </footer>

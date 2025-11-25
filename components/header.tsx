@@ -21,8 +21,14 @@ export function Header() {
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between">
         <Link href="/" className="flex items-center space-x-2">
-          <div className="h-8 w-8 rounded-lg bg-primary" />
-          <span className="text-xl font-bold">ShopBR</span>
+          <div className="h-8 w-8 rounded-lg bg-primary" > 
+          <img
+                src="/logo.png"
+                alt="Logo"
+                className="w-full h-full object-cover"
+          />
+          </div>
+          <span className="text-xl font-bold">Miranda Store</span>
         </Link>
 
         <div className="hidden md:flex flex-1 max-w-md mx-8">
