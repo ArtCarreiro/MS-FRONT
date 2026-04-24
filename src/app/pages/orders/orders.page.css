@@ -1,0 +1,26 @@
+.orders-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.order-card {
+  display: grid;
+  gap: 1rem;
+}
+
+.order-header,
+.order-items div {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.order-header h2 {
+  margin: 0.25rem 0 0;
+  text-transform: capitalize;
+}
+
+.order-items {
+  display: grid;
+  gap: 0.75rem;
+}

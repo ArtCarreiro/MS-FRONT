@@ -1,0 +1,36 @@
+<article class="product-card surface-card">
+  <a class="product-media" [routerLink]="['/products', product().uuid]">
+    @if (imagePath(); as path) {
+      <img [src]="path" [alt]="product().name" />
+    } @else {
+      <div class="media-fallback">
+        <span>{{ product().name.slice(0, 1) }}</span>
+      </div>
+    }
+  </a>
+
+  <div class="product-content">
+    <div class="card-top">
+      <div>
+        <p class="eyebrow">SKU {{ product().skuCode }}</p>
+        <h3>{{ product().name }}</h3>
+      </div>
+      <strong>{{ product().price | currency: 'BRL' : 'symbol' : '1.2-2' : 'pt-BR' }}</strong>
+    </div>
+
+    <div class="tag-list">
+      @for (category of categories(); track category) {
+        <span class="tag">{{ category }}</span>
+      }
+    </div>
+
+    <p class="stock-copy">
+      Estoque disponivel: <strong>{{ product().estoque }}</strong>
+    </p>
+
+    <div class="card-actions">
+      <a class="text-link" [routerLink]="['/products', product().uuid]">Ver detalhes</a>
+      <button type="button" (click)="handleAddToCart()">Adicionar</button>
+    </div>
+  </div>
+</article>

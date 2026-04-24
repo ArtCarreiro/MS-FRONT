@@ -1,0 +1,105 @@
+<section class="container page-section">
+  <div class="section-heading">
+    <div>
+      <p class="eyebrow">Checkout</p>
+      <h1>Estrutura pronta para pedido, endereco e pagamento</h1>
+      <p class="lead">
+        O formulario ja separa dados do comprador, entrega e forma de pagamento, mantendo o
+        projeto pronto para integrar novos contratos da MS-API.
+      </p>
+    </div>
+  </div>
+
+  @if (feedbackMessage(); as message) {
+    <p class="status-card success">{{ message }}</p>
+  }
+
+  <div class="checkout-grid">
+    <form class="surface-card checkout-form" [formGroup]="checkoutForm" (ngSubmit)="submitOrder()">
+      <div class="form-section">
+        <p class="eyebrow">Comprador</p>
+        <div class="form-grid">
+          <label>
+            Nome completo
+            <input type="text" formControlName="fullName" />
+          </label>
+
+          <label>
+            E-mail
+            <input type="email" formControlName="email" />
+          </label>
+
+          <label>
+            Documento
+            <input type="text" formControlName="document" />
+          </label>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <p class="eyebrow">Entrega</p>
+        <div class="form-grid">
+          <label>
+            Rua
+            <input type="text" formControlName="street" />
+          </label>
+
+          <label>
+            Bairro
+            <input type="text" formControlName="neighborhood" />
+          </label>
+
+          <label>
+            CEP
+            <input type="text" formControlName="zipCode" />
+          </label>
+
+          <label>
+            Pais
+            <input type="text" formControlName="country" />
+          </label>
+
+          <label class="full-width">
+            Complemento
+            <input type="text" formControlName="complement" />
+          </label>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <p class="eyebrow">Pagamento</p>
+        <div class="payment-options">
+          <label><input type="radio" formControlName="paymentMethod" value="pix" /> PIX</label>
+          <label><input type="radio" formControlName="paymentMethod" value="credit-card" /> Cartao</label>
+          <label><input type="radio" formControlName="paymentMethod" value="boleto" /> Boleto</label>
+        </div>
+      </div>
+
+      <button class="button-primary" type="submit">Validar estrutura do checkout</button>
+    </form>
+
+    <aside class="surface-card checkout-summary">
+      <p class="eyebrow">Resumo do carrinho</p>
+
+      @if (cart$ | async; as cart) {
+        <div class="summary-list">
+          @for (item of cart.items; track item.product.uuid) {
+            <div>
+              <span>{{ item.product.name }} x{{ item.quantity }}</span>
+              <strong>
+                {{ item.product.price * item.quantity | currency: 'BRL' : 'symbol' : '1.2-2' : 'pt-BR' }}
+              </strong>
+            </div>
+          } @empty {
+            <p class="muted">Nenhum item no carrinho.</p>
+          }
+        </div>
+      }
+
+      <div class="summary-total">
+        <span>Total previsto</span>
+        <strong>{{ subtotal$ | async | currency: 'BRL' : 'symbol' : '1.2-2' : 'pt-BR' }}</strong>
+      </div>
+    </aside>
+  </div>
+</section>

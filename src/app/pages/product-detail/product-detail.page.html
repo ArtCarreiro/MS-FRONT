@@ -1,0 +1,72 @@
+<section class="container page-section">
+  <a class="text-link" routerLink="/products">Voltar para produtos</a>
+
+  @if (feedbackMessage(); as message) {
+    <p class="status-card success">{{ message }}</p>
+  }
+
+  @if (loadError(); as errorMessage) {
+    <p class="status-card error">{{ errorMessage }}</p>
+  }
+
+  @if (product$ | async; as product) {
+    <article class="detail-grid">
+      <div class="detail-media surface-card">
+        @if (product.files?.length) {
+          <img [src]="product.files?.[0]?.path" [alt]="product.name" />
+        } @else {
+          <div class="media-fallback">
+            <span>{{ product.name.slice(0, 1) }}</span>
+          </div>
+        }
+      </div>
+
+      <div class="detail-copy surface-card">
+        <p class="eyebrow">SKU {{ product.skuCode }}</p>
+        <h1>{{ product.name }}</h1>
+        <p class="price">
+          {{ product.price | currency: 'BRL' : 'symbol' : '1.2-2' : 'pt-BR' }}
+        </p>
+
+        <div class="tag-list">
+          @for (category of categoriesFor(product); track category) {
+            <span class="tag">{{ category }}</span>
+          }
+        </div>
+
+        <p class="lead">
+          Produto pronto para consumo do detalhe via contrato GET /products/:uuid. Assim que a
+          MS-API evoluir com descricao longa, variacoes e estoque por filial, esta tela comporta a
+          expansao sem mudar a estrutura.
+        </p>
+
+        <dl class="detail-list">
+          <div>
+            <dt>Estoque</dt>
+            <dd>{{ product.estoque }}</dd>
+          </div>
+          <div>
+            <dt>Status</dt>
+            <dd>{{ product.active ? 'Ativo' : 'Inativo' }}</dd>
+          </div>
+          <div>
+            <dt>Ultima alteracao</dt>
+            <dd>{{ product.modified || 'Nao informada' }}</dd>
+          </div>
+        </dl>
+
+        <div class="detail-actions">
+          <button class="button-primary" type="button" (click)="addProductToCart(product)">
+            Adicionar ao carrinho
+          </button>
+          <a class="button-secondary" routerLink="/cart">Ir para o carrinho</a>
+        </div>
+      </div>
+    </article>
+  } @else {
+    <article class="surface-card empty-state">
+      <h2>Produto indisponivel.</h2>
+      <p>Confira se o UUID existe no backend ou se a API esta respondendo normalmente.</p>
+    </article>
+  }
+</section>

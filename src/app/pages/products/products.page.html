@@ -1,0 +1,64 @@
+<section class="container page-section">
+  <div class="section-heading">
+    <div>
+      <p class="eyebrow">Produtos</p>
+      <h1>Catalogo conectado com a MS-API</h1>
+      <p class="lead">
+        Esta pagina consome a listagem do backend e aplica filtros locais com RxJS para busca,
+        categoria e ordenacao.
+      </p>
+    </div>
+
+    @if (feedbackMessage(); as message) {
+      <p class="status-card success">{{ message }}</p>
+    }
+  </div>
+
+  <div class="filters surface-card">
+    <label>
+      Buscar
+      <input type="search" [formControl]="searchControl" placeholder="Ex.: notebook gamer" />
+    </label>
+
+    <label>
+      Categoria
+      <select [formControl]="categoryControl">
+        <option value="all">Todas</option>
+        @for (category of categories$ | async; track category) {
+          <option [value]="category">{{ category }}</option>
+        }
+      </select>
+    </label>
+
+    <label>
+      Ordenacao
+      <select [formControl]="sortControl">
+        @for (option of sortOptions; track option.value) {
+          <option [value]="option.value">{{ option.label }}</option>
+        }
+      </select>
+    </label>
+  </div>
+
+  @if (loadError(); as errorMessage) {
+    <p class="status-card error">{{ errorMessage }}</p>
+  }
+
+  <p class="results-copy">
+    {{ resultCount$ | async }} produto(s) encontrado(s)
+  </p>
+
+  <div class="product-grid">
+    @for (product of products$ | async; track product.uuid) {
+      <app-product-card
+        [product]="product"
+        (addToCart)="addProductToCart($event)"
+      />
+    } @empty {
+      <article class="surface-card empty-state">
+        <h3>Nenhum produto combina com os filtros atuais.</h3>
+        <p>Experimente limpar a busca, trocar a categoria ou revisar se a API retornou itens ativos.</p>
+      </article>
+    }
+  </div>
+</section>

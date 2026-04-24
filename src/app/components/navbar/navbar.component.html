@@ -1,0 +1,55 @@
+<header class="site-header">
+  <div class="container header-grid">
+    <a class="brand" routerLink="/">
+      <span class="brand-mark">MS</span>
+      <span class="brand-copy">
+        <strong>Marketplace Store</strong>
+        <small>Angular + MS-API</small>
+      </span>
+    </a>
+
+    <nav class="nav-links" aria-label="Navegacao principal">
+      @for (link of navigationLinks; track link.path) {
+        <a
+          [routerLink]="link.path"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: link.path === '/' }"
+        >
+          {{ link.label }}
+        </a>
+      }
+    </nav>
+
+    <form class="search-box" (ngSubmit)="submitSearch()">
+      <label class="sr-only" for="header-search">Buscar produtos</label>
+      <input
+        id="header-search"
+        type="search"
+        name="search"
+        [(ngModel)]="searchTerm"
+        placeholder="Buscar por nome, SKU ou palavra-chave"
+      />
+      <button type="submit">Buscar</button>
+    </form>
+
+    <div class="header-actions">
+      <a class="cart-link" routerLink="/cart">
+        Carrinho
+        <span>{{ cartItemsCount$ | async }}</span>
+      </a>
+
+      @if (session$ | async; as session) {
+        <a class="profile-link" routerLink="/profile">{{ session.user.email }}</a>
+
+        @if (session.user.role === 'ADMINISTRATOR') {
+          <a class="profile-link" routerLink="/admin">Admin</a>
+        }
+
+        <button class="ghost-button" type="button" (click)="logout()">Sair</button>
+      } @else {
+        <a class="profile-link" routerLink="/login">Entrar</a>
+        <a class="solid-link" routerLink="/register">Criar conta</a>
+      }
+    </div>
+  </div>
+</header>

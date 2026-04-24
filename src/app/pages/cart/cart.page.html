@@ -1,0 +1,66 @@
+<section class="container page-section">
+  <div class="section-heading">
+    <div>
+      <p class="eyebrow">Carrinho</p>
+      <h1>Resumo da compra</h1>
+      <p class="lead">Estado local persistido em storage, pronto para integrar com pedidos e checkout.</p>
+    </div>
+    <a class="text-link" routerLink="/products">Continuar comprando</a>
+  </div>
+
+  @if (cart$ | async; as cart) {
+    @if (cart.items.length) {
+      <div class="cart-grid">
+        <div class="cart-items">
+          @for (item of cart.items; track item.product.uuid) {
+            <article class="surface-card cart-item">
+              <div>
+                <p class="eyebrow">SKU {{ item.product.skuCode }}</p>
+                <h3>{{ item.product.name }}</h3>
+                <p>{{ item.product.price | currency: 'BRL' : 'symbol' : '1.2-2' : 'pt-BR' }}</p>
+              </div>
+
+              <div class="quantity-actions">
+                <button type="button" (click)="decreaseQuantity(item)">-</button>
+                <span>{{ item.quantity }}</span>
+                <button type="button" (click)="increaseQuantity(item)">+</button>
+              </div>
+
+              <div class="item-total">
+                <strong>
+                  {{ item.product.price * item.quantity | currency: 'BRL' : 'symbol' : '1.2-2' : 'pt-BR' }}
+                </strong>
+                <button class="text-link" type="button" (click)="removeItem(item.product.uuid)">
+                  Remover
+                </button>
+              </div>
+            </article>
+          }
+        </div>
+
+        <aside class="surface-card cart-summary">
+          <p class="eyebrow">Resumo</p>
+          <dl>
+            <div>
+              <dt>Itens</dt>
+              <dd>{{ totalItems$ | async }}</dd>
+            </div>
+            <div>
+              <dt>Subtotal</dt>
+              <dd>{{ subtotal$ | async | currency: 'BRL' : 'symbol' : '1.2-2' : 'pt-BR' }}</dd>
+            </div>
+          </dl>
+
+          <a class="button-primary" routerLink="/checkout">Ir para checkout</a>
+          <button class="button-secondary" type="button" (click)="clearCart()">Limpar carrinho</button>
+        </aside>
+      </div>
+    } @else {
+      <article class="surface-card empty-state">
+        <h2>Seu carrinho esta vazio.</h2>
+        <p>Adicione produtos a partir da listagem ou do detalhe para testar o fluxo completo.</p>
+        <a class="button-primary" routerLink="/products">Ver produtos</a>
+      </article>
+    }
+  }
+</section>

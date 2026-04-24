@@ -1,0 +1,35 @@
+<section class="container page-section">
+  <div class="section-heading">
+    <div>
+      <p class="eyebrow">Pedidos</p>
+      <h1>Estrutura inicial do historico</h1>
+      <p class="lead">
+        Esta pagina esta preparada para trocar os dados mockados por endpoints reais assim que o
+        dominio de pedidos existir na MS-API.
+      </p>
+    </div>
+  </div>
+
+  <div class="orders-grid">
+    @for (order of orders; track order.id) {
+      <article class="surface-card order-card">
+        <div class="order-header">
+          <div>
+            <p class="eyebrow">{{ order.id }}</p>
+            <h2>{{ order.status }}</h2>
+          </div>
+          <strong>{{ order.total | currency: 'BRL' : 'symbol' : '1.2-2' : 'pt-BR' }}</strong>
+        </div>
+
+        <div class="order-items">
+          @for (item of order.items; track item.productName) {
+            <div>
+              <span>{{ item.productName }} x{{ item.quantity }}</span>
+              <span>{{ item.unitPrice | currency: 'BRL' : 'symbol' : '1.2-2' : 'pt-BR' }}</span>
+            </div>
+          }
+        </div>
+      </article>
+    }
+  </div>
+</section>

@@ -1,0 +1,35 @@
+<section class="container page-section">
+  <p class="eyebrow">Perfil</p>
+  <h1>Area protegida por guard</h1>
+
+  @if (session$ | async; as session) {
+    <div class="profile-grid">
+      <article class="surface-card">
+        <h2>Dados da sessao</h2>
+        <dl class="profile-list">
+          <div>
+            <dt>E-mail</dt>
+            <dd>{{ session.user.email }}</dd>
+          </div>
+          <div>
+            <dt>Papel</dt>
+            <dd>{{ session.user.role }}</dd>
+          </div>
+          <div>
+            <dt>Token presente</dt>
+            <dd>{{ session.accessToken ? 'Sim' : 'Nao' }}</dd>
+          </div>
+        </dl>
+      </article>
+
+      <article class="surface-card">
+        <h2>Proximos passos</h2>
+        <ul class="feature-list">
+          <li>Vincular cliente autenticado a GET /customers/:uuid</li>
+          <li>Editar endereco com POST /address e PUT /address/:uuid</li>
+          <li>Listar pedidos reais quando a MS-API expor esse dominio</li>
+        </ul>
+      </article>
+    </div>
+  }
+</section>

@@ -1,0 +1,98 @@
+.product-card {
+  overflow: hidden;
+  display: grid;
+  gap: 1rem;
+  padding: 0;
+}
+
+.product-media {
+  display: block;
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at top left, rgba(255, 255, 255, 0.45), transparent 50%),
+    linear-gradient(145deg, rgba(214, 242, 240, 0.95), rgba(244, 229, 213, 0.9));
+}
+
+.product-media img,
+.media-fallback {
+  width: 100%;
+  height: 100%;
+}
+
+.product-media img {
+  object-fit: cover;
+}
+
+.media-fallback {
+  display: grid;
+  place-items: center;
+}
+
+.media-fallback span {
+  display: inline-grid;
+  place-items: center;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 1.2rem;
+  background: rgba(23, 58, 58, 0.85);
+  color: white;
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  text-transform: uppercase;
+}
+
+.product-content {
+  display: grid;
+  gap: 1rem;
+  padding: 0 1.25rem 1.25rem;
+}
+
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.card-top h3 {
+  margin: 0.25rem 0 0;
+  font-size: 1.15rem;
+}
+
+.card-top strong {
+  white-space: nowrap;
+  font-size: 1.05rem;
+  color: var(--brand-strong);
+}
+
+.stock-copy {
+  margin: 0;
+  color: var(--text-muted);
+}
+
+.card-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.card-actions button {
+  border: 0;
+  border-radius: 999px;
+  background: var(--brand-accent);
+  color: white;
+  padding: 0.8rem 1rem;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+@media (max-width: 640px) {
+  .card-top,
+  .card-actions {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

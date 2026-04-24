@@ -1,0 +1,30 @@
+<section class="container page-section auth-page">
+  <article class="surface-card auth-card">
+    <p class="eyebrow">Autenticacao</p>
+    <h1>Entrar</h1>
+    <p class="lead">
+      O frontend ja possui guard, session e interceptor. Falta apenas a publicacao do endpoint de
+      login/JWT na MS-API para concluir este fluxo de ponta a ponta.
+    </p>
+
+    @if (apiMessage(); as message) {
+      <p class="status-card error">{{ message }}</p>
+    }
+
+    <form [formGroup]="loginForm" (ngSubmit)="submit()">
+      <label>
+        E-mail
+        <input type="email" formControlName="email" />
+      </label>
+
+      <label>
+        Senha
+        <input type="password" formControlName="password" />
+      </label>
+
+      <button class="button-primary" type="submit" [disabled]="isSubmitting()">
+        {{ isSubmitting() ? 'Validando...' : 'Tentar login' }}
+      </button>
+    </form>
+  </article>
+</section>

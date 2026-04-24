@@ -1,0 +1,26 @@
+<section class="container page-section">
+  <p class="eyebrow">Admin</p>
+  <h1>Painel inicial protegido</h1>
+  <p class="lead">
+    Estrutura basica para administracao sem migrar a aplicacao para uma arquitetura totalmente por
+    feature.
+  </p>
+
+  <div class="metrics-grid">
+    @for (metric of metrics$ | async; track metric.label) {
+      <article class="surface-card metric-card">
+        <p>{{ metric.label }}</p>
+        <strong>{{ metric.value }}</strong>
+      </article>
+    }
+  </div>
+
+  <article class="surface-card">
+    <h2>Roadmap sugerido</h2>
+    <ul class="feature-list">
+      @for (step of nextSteps; track step) {
+        <li>{{ step }}</li>
+      }
+    </ul>
+  </article>
+</section>

@@ -1,0 +1,70 @@
+<section class="container hero-section">
+  <div class="hero-grid">
+    <div class="hero-copy">
+      <p class="eyebrow">E-commerce baseado na MS-API</p>
+      <h1>Frontend Angular moderno, limpo e pronto para escalar.</h1>
+      <p class="lead">
+        Estrutura organizada por <strong>components</strong>, <strong>pages</strong>,
+        <strong>services</strong>, <strong>models</strong>, <strong>guards</strong>,
+        <strong>interceptors</strong> e <strong>shared</strong>, sem quebrar o padrao do
+        projeto.
+      </p>
+
+      <div class="hero-actions">
+        <a class="button-primary" routerLink="/products">Explorar catalogo</a>
+        <a class="button-secondary" routerLink="/checkout">Ver checkout</a>
+      </div>
+
+      @if (feedbackMessage(); as message) {
+        <p class="status-card success">{{ message }}</p>
+      }
+
+      @if (loadError(); as errorMessage) {
+        <p class="status-card error">{{ errorMessage }}</p>
+      }
+    </div>
+
+    <div class="hero-panel surface-card">
+      <p class="eyebrow">Dominios mapeados</p>
+      <ul class="feature-list">
+        <li>Produtos com consumo real de GET /products e GET /products/:uuid</li>
+        <li>Cadastro de usuario alinhado ao contrato `POST /users`</li>
+        <li>Camada pronta para clientes, enderecos, pedidos e admin</li>
+        <li>Guards e interceptors preparados para JWT assim que a MS-API liberar o login</li>
+      </ul>
+
+      <div class="tag-list">
+        @for (category of categories$ | async; track category) {
+          <a class="tag" [routerLink]="['/products']" [queryParams]="{ q: category }">{{ category }}</a>
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="container page-section">
+  <div class="section-heading">
+    <div>
+      <p class="eyebrow">Catalogo</p>
+      <h2>Produtos em destaque</h2>
+    </div>
+    <a class="text-link" routerLink="/products">Ver todos</a>
+  </div>
+
+  <div class="product-grid">
+    @for (product of featuredProducts$ | async; track product.uuid) {
+      <app-product-card
+        [product]="product"
+        (addToCart)="addProductToCart($event)"
+      />
+    } @empty {
+      <article class="surface-card empty-state">
+        <h3>Nenhum produto retornado pela API.</h3>
+        <p>
+          Quando o backend estiver disponivel em http://localhost:8080, esta secao passa a
+          consumir os itens ativos automaticamente.
+        </p>
+      </article>
+    }
+  </div>
+</section>

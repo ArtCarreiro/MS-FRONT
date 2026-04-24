@@ -1,0 +1,23 @@
+.filters {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.filters label {
+  display: grid;
+  gap: 0.45rem;
+  color: var(--text-muted);
+}
+
+.results-copy {
+  margin: 1rem 0 1.4rem;
+  color: var(--text-muted);
+}
+
+@media (max-width: 860px) {
+  .filters {
+    grid-template-columns: 1fr;
+  }
+}

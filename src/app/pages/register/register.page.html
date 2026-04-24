@@ -1,0 +1,48 @@
+<section class="container page-section auth-page">
+  <article class="surface-card auth-card">
+    <p class="eyebrow">Cadastro</p>
+    <h1>Criar conta</h1>
+    <p class="lead">
+      Este formulario respeita o contrato atual de usuario da MS-API (`email`, `password` e
+      `role`), sem inventar payloads fora do backend.
+    </p>
+
+    @if (apiMessage(); as message) {
+      <p class="status-card success">{{ message }}</p>
+    }
+
+    <form [formGroup]="registerForm" (ngSubmit)="submit()">
+      <label>
+        E-mail
+        <input type="email" formControlName="email" />
+      </label>
+
+      <label>
+        Senha
+        <input type="password" formControlName="password" />
+      </label>
+
+      <label>
+        Confirmar senha
+        <input type="password" formControlName="confirmPassword" />
+      </label>
+
+      <label>
+        Papel
+        <select formControlName="role">
+          @for (role of roleOptions; track role.value) {
+            <option [value]="role.value">{{ role.label }}</option>
+          }
+        </select>
+      </label>
+
+      @if (registerForm.errors?.['passwordMismatch']) {
+        <p class="status-card error">As senhas precisam ser iguais.</p>
+      }
+
+      <button class="button-primary" type="submit" [disabled]="isSubmitting()">
+        {{ isSubmitting() ? 'Enviando...' : 'Criar conta' }}
+      </button>
+    </form>
+  </article>
+</section>
